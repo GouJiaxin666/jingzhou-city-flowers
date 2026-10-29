@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荆州市花 · 荷风梅韵</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "STHeiti", sans-serif;
+    color: #3a2f2a;
+    overflow-x: hidden;
+    line-height: 1.8;
+  }
+
+  /* ============ 导航栏 ============ */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    transition: all 0.4s ease;
+  }
+  .nav.scrolled {
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .nav-brand {
+    position: absolute;
+    left: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, #e85a8a, #f5c84b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+  }
+  .nav-tabs a {
+    text-decoration: none;
+    color: #5a4636;
+    font-size: 15px;
+    padding: 8px 18px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .nav-tabs a:hover {
+    color: #c8557e;
+    background: rgba(255,255,255,0.5);
+  }
+  .nav-tabs a.active {
+    background: linear-gradient(135deg, #e85a8a, #f5c84b);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(232,90,138,0.35);
+  }
+
+  /* ============ Hero 标题区 ============ */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2d1b3d 0%, #4a2c5a 40%, #8b4a6e 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(232,90,138,0.4) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(245,200,75,0.35) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(144,238,144,0.15) 0%, transparent 60%);
+    animation: floatGrad 18s ease-in-out infinite;
+  }
+  @keyframes floatGrad {
+    0%,100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.15) rotate(8deg); }
+  }
+  .hero-bg, .hero-bg-2 {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    filter: blur(1px);
+    transition: opacity 2s ease-in-out;
+  }
+  .hero-bg {
+    background-image: url('Figures/莲花/1.jpg');
+  }
+  .hero-bg-2 {
+    background-image: url('Figures/蜡梅/1.jpg');
+    opacity: 0;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    padding: 0 20px;
+  }
+  .hero-subtitle {
+    font-size: 18px;
+    letter-spacing: 12px;
+    opacity: 0.85;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  }
+  .hero-title {
+    font-size: clamp(48px, 9vw, 120px);
+    font-weight: 900;
+    letter-spacing: 10px;
+    background: linear-gradient(135deg, #fff 0%, #ffd9ec 40%, #fff3c4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 30px rgba(232,90,138,0.3);
+    margin-bottom: 16px;
+    animation: titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow {
+    0%,100% { filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+    50% { filter: drop-shadow(0 0 25px rgba(255,217,236,0.6)); }
+  }
+  .hero-desc {
+    font-size: 17px;
+    letter-spacing: 4px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 2;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 3px;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+    z-index: 2;
+  }
+  .hero-scroll::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: #fff;
+    margin: 10px auto 0;
+    opacity: 0.5;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 10px); }
+  }
+
+  /* ============ 通用板块 ============ */
+  section {
+    position: relative;
+    padding: 100px 40px;
+    overflow: hidden;
+  }
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: #c8557e;
+    margin-bottom: 12px;
+    padding: 4px 16px;
+    border: 1px solid rgba(200,85,126,0.4);
+    border-radius: 20px;
+  }
+  .section-title {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: 4px;
+  }
+  .section-lead {
+    position: relative;
+    font-size: 16px;
+    color: #6b5a50;
+    max-width: 1100px;
+    margin-bottom: 50px;
+    padding-left: 22px;
+    line-height: 2;
+  }
+  .section-lead::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #e85a8a, #f5c84b);
+  }
+
+  /* ============ 市花历史 ============ */
+  #history {
+    background: linear-gradient(180deg, #fff5f8 0%, #fdeef3 50%, #faf0e6 100%);
+  }
+  .history-title {
+    background: linear-gradient(135deg, #c8557e, #d4886a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .timeline {
+    position: relative;
+    padding-left: 44px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 9px; top: 0; bottom: 0;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #e85a8a, #f5c84b 60%, rgba(76,175,80,0.7));
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 26px;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.7s ease;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -44px; top: 4px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e85a8a, #f5c84b);
+    box-shadow: 0 0 0 4px #fff, 0 0 14px rgba(232,90,138,0.45);
+  }
+  .timeline-dot::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.8;
+  }
+  .timeline-year {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #fff;
+    padding: 5px 16px;
+    margin-bottom: 12px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #e85a8a, #ee8fa6);
+    box-shadow: 0 6px 16px rgba(232,90,138,0.28);
+  }
+  .timeline-text {
+    position: relative;
+    font-size: 14.5px;
+    color: #5a4636;
+    line-height: 2;
+    padding: 22px 26px;
+    border-radius: 16px;
+    background: linear-gradient(155deg, #ffffff 0%, #fff8fb 55%, #fffdf6 100%);
+    border: 1px solid rgba(232, 90, 138, 0.14);
+    box-shadow: 0 10px 28px rgba(200, 85, 126, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .timeline-text::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 18px; bottom: 18px;
+    width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #e85a8a, #f5c84b);
+    opacity: 0.75;
+  }
+  .timeline-text:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 38px rgba(200, 85, 126, 0.14);
+  }
+  .history-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+  }
+  .history-gallery img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+  .history-gallery img:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+  }
+
+  /* 双市花分析 */
+  .sub-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #a3476b;
+    margin: 46px 0 14px;
+  }
+  .sub-title::before {
+    content: "";
+    width: 30px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #e85a8a, #f5c84b);
+  }
+  .sub-lead {
+    font-size: 14.5px;
+    color: #6b5a50;
+    line-height: 2;
+    max-width: 980px;
+    margin-bottom: 26px;
+  }
+  .dual-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 34px;
+  }
+  .dual-point {
+    position: relative;
+    padding: 26px 24px 26px 28px;
+    border-radius: 18px;
+    background: linear-gradient(150deg, #fffdf7 0%, #fff8fb 60%, #f7fbf4 100%);
+    border: 1px solid rgba(180, 140, 90, 0.16);
+    box-shadow: 0 10px 28px rgba(150, 110, 90, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .dual-point::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #e85a8a, #f5c84b 55%, #66bb6a);
+    opacity: 0.8;
+  }
+  .dual-point:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 44px rgba(150, 110, 90, 0.15);
+  }
+  .dual-point h4 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #8a5a3b;
+    margin-bottom: 10px;
+  }
+  .dual-point p {
+    font-size: 14px;
+    color: #5a4636;
+    line-height: 1.95;
+  }
+  .history-quote {
+    text-align: center;
+    font-family: "KaiTi", "STKaiti", serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: #b0698c;
+    padding: 30px 20px;
+    margin-bottom: 50px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,247,236,0.92));
+    border: 1px solid rgba(232,90,138,0.12);
+    box-shadow: 0 10px 28px rgba(200,85,126,0.07);
+  }
+
+  /* ============ 走进市花 ============ */
+  #introduce {
+    background: linear-gradient(180deg, #faf0e6 0%, #e8f5e9 50%, #fff5f0 100%);
+  }
+  .introduce-title {
+    background: linear-gradient(135deg, #2e7d32, #c8557e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .flower-block {
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+  }
+  .flower-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .flower-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .flower-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .flower-icon svg {
+    width: 48px;
+    height: 48px;
+    display: block;
+  }
+  .icon-lotus { background: linear-gradient(135deg, #e85a8a, #ff8fab); }
+  .icon-plum { background: linear-gradient(135deg, #f5c84b, #d4886a); }
+  .flower-name {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 3px;
+  }
+  .flower-name.lotus { color: #c8557e; }
+  .flower-name.plum { color: #b8860b; }
+  .flower-en {
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #999;
+    margin-top: 2px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+  .info-card {
+    position: relative;
+    background: linear-gradient(155deg, #ffffff 0%, #fff8fb 60%, #fffdf5 100%);
+    backdrop-filter: blur(8px);
+    padding: 26px 22px 22px;
+    border-radius: 18px;
+    border: 1px solid rgba(232, 90, 138, 0.14);
+    box-shadow: 0 10px 28px rgba(200, 85, 126, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .info-card::before {
+    content: "";
+    position: absolute;
+    left: 22px; right: 22px; top: 0;
+    height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, #e85a8a, #f5c84b);
+    opacity: 0.85;
+  }
+  .info-card::after {
+    content: "";
+    position: absolute;
+    right: -30px; bottom: -30px;
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,200,75,0.16), transparent 70%);
+    pointer-events: none;
+  }
+  .info-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 44px rgba(200, 85, 126, 0.16);
+  }
+  .info-card h4 {
+    position: relative;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #a3476b;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-card h4 svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .info-card p {
+    position: relative;
+    font-size: 13.5px;
+    color: #6b5a50;
+    line-height: 1.95;
+  }
+
+  /* 照片轮播 */
+  .gallery {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .gallery-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .gallery-slide {
+    min-width: 100%;
+    position: relative;
+  }
+  .gallery-slide img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+  }
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 30px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  .gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    color: #c8557e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 5;
+  }
+  .gallery-btn:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.1);
+  }
+  .gallery-btn.prev { left: 20px; }
+  .gallery-btn.next { right: 20px; }
+  .gallery-dots {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+  .gallery-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .gallery-dot.active {
+    background: #fff;
+    width: 28px;
+    border-radius: 5px;
+  }
+
+  /* ============ 神话传说与文化 ============ */
+  #culture {
+    background: linear-gradient(180deg, #fff5f0 0%, #f3e5f5 50%, #e8f5e9 100%);
+  }
+  .culture-title {
+    background: linear-gradient(135deg, #7b4b94, #2e7d32);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .culture-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .culture-card {
+    position: relative;
+    background: linear-gradient(150deg, #ffffff 0%, #fff9fc 55%, #fffdf6 100%);
+    border-radius: 22px;
+    padding: 36px 32px 30px;
+    box-shadow: 0 14px 40px rgba(120, 70, 100, 0.10), inset 0 1px 0 rgba(255,255,255,0.9);
+    border: 1px solid rgba(232, 90, 138, 0.14);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .culture-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #e85a8a, #f5c84b 50%, #66bb6a);
+    opacity: 0.8;
+  }
+  .culture-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(120, 70, 100, 0.16);
+  }
+
+  /* 神话传说：青铜图腾风格 */
+  .myth-card {
+    background:
+      radial-gradient(circle at 8% 6%, rgba(200, 160, 88, 0.18), transparent 42%),
+      radial-gradient(circle at 92% 94%, rgba(200, 160, 88, 0.16), transparent 42%),
+      linear-gradient(150deg, #fffdf8 0%, #fbf3e4 55%, #f6ebd6 100%);
+    border: 1px solid rgba(166, 122, 56, 0.34);
+    box-shadow:
+      0 18px 48px rgba(120, 82, 34, 0.14),
+      inset 0 0 0 5px rgba(255, 255, 255, 0.5),
+      inset 0 0 0 6px rgba(178, 136, 74, 0.2);
+    padding: 54px 46px 48px;
+  }
+  .myth-card::before {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(176, 133, 66, 0.7), transparent);
+    opacity: 1;
+  }
+  .myth-card h3 {
+    position: relative;
+    z-index: 1;
+    color: #6f4a1f;
+    font-size: 24px;
+    letter-spacing: 4px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(176, 133, 66, 0.35);
+  }
+  .myth-card h4 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: "KaiTi", "STKaiti", serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+  .myth-card h4::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    transform: rotate(45deg);
+    background: linear-gradient(135deg, #d8b46a, #8b5e26);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
+  }
+  .myth-card h4.lotus { color: #b23a5e; }
+  .myth-card h4.plum { color: #a5761c; }
+  .myth-card p {
+    font-family: "KaiTi", "STKaiti", serif;
+    font-size: 15px;
+    line-height: 2.05;
+    color: #5b4630;
+    text-indent: 2em;
+  }
+  .myth-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+    margin-top: 26px;
+  }
+  .totem-band {
+    position: absolute;
+    left: 64px;
+    width: calc(100% - 128px);
+    height: 18px;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .totem-top { top: 14px; }
+  .totem-bottom { bottom: 14px; transform: scaleY(-1); }
+  .totem-corner {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .totem-corner path,
+  .totem-corner circle {
+    stroke: #b08542;
+    stroke-width: 1.6;
+    fill: none;
+  }
+  .totem-corner.tl { top: 8px; left: 8px; }
+  .totem-corner.tr { top: 8px; right: 8px; transform: scaleX(-1); }
+  .totem-corner.bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+  .totem-corner.br { bottom: 8px; right: 8px; transform: scale(-1, -1); }
+  .totem-taotie {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 220px;
+    height: 158px;
+    transform: translate(-50%, -50%);
+    opacity: 0.09;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .totem-taotie path {
+    stroke: #8a5a2b;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    fill: none;
+  }
+  .culture-card h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .culture-card h3 svg {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .culture-card p {
+    font-size: 14.5px;
+    color: #5a4636;
+    line-height: 2;
+    margin-bottom: 14px;
+  }
+  .poem-box {
+    position: relative;
+    background:
+      radial-gradient(circle at 14% 18%, rgba(120, 105, 90, 0.06), transparent 40%),
+      radial-gradient(circle at 86% 82%, rgba(120, 105, 90, 0.05), transparent 40%),
+      linear-gradient(135deg, #fffdf5 0%, #fdf4e2 55%, #f8edd6 100%);
+    padding: 26px 36px 20px;
+    margin: 26px 12px 24px;
+    border: 1px solid rgba(160, 128, 82, 0.38);
+    border-radius: 3px;
+    box-shadow:
+      0 10px 24px rgba(120, 90, 50, 0.12),
+      inset 0 0 28px rgba(190, 160, 110, 0.16);
+    font-family: "KaiTi", "STKaiti", serif;
+  }
+  .poem-box::before,
+  .poem-box::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    width: 16px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #7d4e22 0%, #b98a4f 30%, #e2c48d 55%, #c0925a 78%, #7d4e22 100%);
+    box-shadow: 0 4px 12px rgba(90, 60, 25, 0.35), inset 0 0 0 1px rgba(255, 244, 215, 0.4);
+    z-index: 0;
+  }
+  .poem-box::before { left: -9px; }
+  .poem-box::after { right: -9px; }
+  .poem-box.lotus { border-color: rgba(200, 110, 140, 0.35); }
+  .poem-box.plum { border-color: rgba(176, 132, 60, 0.4); }
+  .poem-box p {
+    position: relative;
+    z-index: 1;
+    font-size: 16px;
+    line-height: 2.2;
+    color: #4f4132;
+    margin: 0;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .poem-author {
+    position: relative;
+    z-index: 1;
+    text-align: right;
+    font-size: 13px;
+    color: #9a7f5c;
+    margin-top: 8px;
+  }
+  .ink-splash {
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    opacity: 0.75;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ink-splash.tl { top: -6px; left: 4px; }
+  .ink-splash.br { bottom: -6px; right: 4px; transform: scale(-1, -1); }
+  .ink-splash path,
+  .ink-splash circle { fill: #4a4038; }
+
+  .culture-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .culture-images img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+  }
+  .culture-images img:hover { transform: scale(1.04); }
+
+  /* ============ 市花气节 ============ */
+  #spirit {
+    background: linear-gradient(180deg, #e8f5e9 0%, #fff8e1 50%, #fce4ec 100%);
+  }
+  .spirit-title {
+    background: linear-gradient(135deg, #2e7d32, #f5c84b, #e85a8a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .spirit-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .spirit-card {
+    text-align: center;
+    padding: 44px 30px 38px;
+    border-radius: 20px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 14px 36px rgba(90, 50, 70, 0.2);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .spirit-cards .spirit-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 26px 56px rgba(90, 50, 70, 0.3);
+  }
+  .spirit-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transition: opacity 0.4s ease;
+  }
+  .spirit-card:nth-child(1) {
+    background-image: url('Figures/莲花/4.jpg');
+  }
+  .spirit-card:nth-child(1)::before {
+    opacity: 0.8;
+    background: linear-gradient(160deg, rgba(232,90,138,0.88) 0%, rgba(198,56,108,0.78) 55%, rgba(140,28,76,0.88) 100%);
+  }
+  .spirit-card:nth-child(2) {
+    background-image: url('Figures/蜡梅/4.jpg');
+  }
+  .spirit-card:nth-child(2)::before {
+    opacity: 0.8;
+    background: linear-gradient(160deg, rgba(240,186,72,0.86) 0%, rgba(206,144,52,0.78) 55%, rgba(136,84,26,0.88) 100%);
+  }
+  .spirit-card:nth-child(3) {
+    background-image: url('Figures/荆州/1.jpg');
+  }
+  .spirit-card:nth-child(3)::before {
+    opacity: 0.8;
+    background: linear-gradient(160deg, rgba(84,164,92,0.84) 0%, rgba(52,126,66,0.8) 55%, rgba(24,78,44,0.88) 100%);
+  }
+  .spirit-cards .spirit-card:hover::before {
+    opacity: 0.55;
+  }
+  .spirit-card > * { position: relative; z-index: 1; }
+  .spirit-emoji {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.86);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.6);
+    backdrop-filter: blur(4px);
+  }
+  .spirit-emoji svg {
+    width: 44px;
+    height: 44px;
+    display: block;
+  }
+  .spirit-card h3 {
+    font-size: 24px;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.32);
+  }
+  .spirit-card p {
+    font-size: 14px;
+    line-height: 1.9;
+    opacity: 0.95;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.35);
+  }
+
+  /* ============ 荆州花语 ============ */
+  #jingzhou {
+    background: linear-gradient(180deg, #fce4ec 0%, #f3e5f5 50%, #e8eaf6 100%);
+  }
+  .jingzhou-title {
+    background: linear-gradient(135deg, #5e35b1, #c8557e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .jingzhou-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+  }
+  .jingzhou-text p {
+    font-size: 15.5px;
+    line-height: 2.1;
+    color: #5a4636;
+    margin-bottom: 16px;
+  }
+  .jingzhou-quote {
+    font-family: "KaiTi", "STKaiti", serif;
+    font-size: 20px;
+    line-height: 2;
+    color: #c8557e;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 14px;
+    border-left: 5px solid #f5c84b;
+    margin: 20px 0;
+  }
+  .jingzhou-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .jingzhou-images img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  }
+  .jingzhou-images img:nth-child(1) { grid-row: span 2; height: 100%; }
+
+  /* ============ 页脚 ============ */
+  footer {
+    background: linear-gradient(135deg, #2d1b3d, #4a2c5a);
+    color: #fff;
+    text-align: center;
+    padding: 50px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(232,90,138,0.3), transparent 60%),
+                radial-gradient(circle at 70% 50%, rgba(245,200,75,0.2), transparent 60%);
+  }
+  footer p { position: relative; z-index: 1; }
+  .footer-title {
+    font-size: 24px;
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #ffd9ec, #fff3c4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .footer-sub {
+    font-size: 13px;
+    opacity: 0.7;
+    letter-spacing: 3px;
+  }
+
+  /* ============ 滚动渐入动画 ============ */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============ 响应式 ============ */
+  @media (max-width: 768px) {
+    .nav-brand { display: none; }
+    .nav-tabs a { padding: 6px 10px; font-size: 13px; }
+    section { padding: 70px 20px; }
+    .history-gallery { grid-template-columns: 1fr; }
+    .culture-grid { grid-template-columns: 1fr; }
+    .dual-grid { grid-template-columns: 1fr; }
+    .myth-grid { grid-template-columns: 1fr; gap: 28px; }
+    .myth-card { padding: 46px 22px 40px; }
+    .totem-band { left: 52px; width: calc(100% - 104px); }
+    .totem-corner { width: 34px; height: 34px; }
+    .totem-taotie { width: 170px; height: 122px; }
+    .spirit-cards { grid-template-columns: 1fr; }
+    .jingzhou-banner { grid-template-columns: 1fr; }
+    .gallery-slide img { height: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG 图标库 -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- 荷花图标 -->
+    <symbol id="icon-lotus" viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="lotusPetalG" cx="50%" cy="55%" r="62%">
+          <stop offset="0%" stop-color="#ffe8ef"/>
+          <stop offset="55%" stop-color="#ffbfd3"/>
+          <stop offset="100%" stop-color="#f574a1"/>
+        </radialGradient>
+        <radialGradient id="lotusPetalL" cx="45%" cy="50%" r="62%">
+          <stop offset="0%" stop-color="#fff6f9"/>
+          <stop offset="60%" stop-color="#ffd7e3"/>
+          <stop offset="100%" stop-color="#fb98b8"/>
+        </radialGradient>
+        <clipPath id="lotusPadClip">
+          <ellipse cx="70" cy="81" rx="27" ry="16.5"/>
+        </clipPath>
+      </defs>
+      <!-- 茎 -->
+      <path d="M35 58 C28 68 23 80 18 96" stroke="#4fbfb1" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+      <!-- 荷叶 -->
+      <ellipse cx="70" cy="81" rx="27" ry="16.5" fill="#66cabb"/>
+      <g clip-path="url(#lotusPadClip)" stroke="#3aa79a" stroke-width="2" stroke-linecap="round">
+        <line x1="64" y1="79" x2="44" y2="74"/>
+        <line x1="64" y1="79" x2="51" y2="93"/>
+        <line x1="64" y1="79" x2="64" y2="65"/>
+        <line x1="64" y1="79" x2="83" y2="69"/>
+        <line x1="64" y1="79" x2="95" y2="80"/>
+        <line x1="64" y1="79" x2="88" y2="94"/>
+        <line x1="64" y1="79" x2="70" y2="97"/>
+      </g>
+      <!-- 荷花 -->
+      <g transform="translate(42,40)">
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(-30)"/>
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(10)"/>
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(50)"/>
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(130)"/>
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(170)"/>
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(210)"/>
+        <ellipse cx="0" cy="-19" rx="8" ry="18" fill="url(#lotusPetalG)" transform="rotate(250)"/>
+        <ellipse cx="0" cy="-13" rx="6.5" ry="12" fill="url(#lotusPetalL)" transform="rotate(-5)"/>
+        <ellipse cx="0" cy="-13" rx="6.5" ry="12" fill="url(#lotusPetalL)" transform="rotate(55)"/>
+        <ellipse cx="0" cy="-13" rx="6.5" ry="12" fill="url(#lotusPetalL)" transform="rotate(150)"/>
+        <ellipse cx="0" cy="-13" rx="6.5" ry="12" fill="url(#lotusPetalL)" transform="rotate(240)"/>
+        <ellipse cx="5" cy="-2" rx="9" ry="7" fill="#f7d844"/>
+        <ellipse cx="-4" cy="16" rx="13" ry="16" fill="url(#lotusPetalL)" transform="rotate(-14 -4 16)"/>
+        <ellipse cx="11" cy="12" rx="10" ry="13" fill="url(#lotusPetalG)" transform="rotate(38 11 12)"/>
+        <ellipse cx="-3" cy="14" rx="7" ry="9" fill="#ffeef4" opacity="0.55" transform="rotate(-14 -3 14)"/>
+      </g>
+    </symbol>
+
+    <!-- 蜡梅图标 -->
+    <symbol id="icon-plum" viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="plumPetalG" cx="45%" cy="38%" r="64%">
+          <stop offset="0%" stop-color="#fff8c4"/>
+          <stop offset="55%" stop-color="#ffd52b"/>
+          <stop offset="100%" stop-color="#efa70f"/>
+        </radialGradient>
+        <radialGradient id="plumInnerG" cx="45%" cy="38%" r="64%">
+          <stop offset="0%" stop-color="#fffce0"/>
+          <stop offset="60%" stop-color="#ffe266"/>
+          <stop offset="100%" stop-color="#f7b515"/>
+        </radialGradient>
+      </defs>
+      <!-- 枝干 -->
+      <path d="M6 76 C18 72 30 66 40 61 C50 56 58 53 66 52 C76 51 85 53 94 57" stroke="#6b3a1a" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M40 61 C44 52 48 45 54 39" stroke="#6b3a1a" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+      <path d="M66 52 C70 45 75 40 81 35" stroke="#6b3a1a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+      <path d="M40 61 C35 67 30 72 24 78" stroke="#6b3a1a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+      <path d="M60 55 C60 61 58 66 54 70" stroke="#6b3a1a" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+      <!-- 花苞 -->
+      <g transform="translate(56,33)">
+        <circle cx="0" cy="2" r="4" fill="#8a4a24"/>
+        <circle cx="0" cy="-1" r="3.6" fill="#ffd21f"/>
+        <ellipse cx="-1.3" cy="-2.2" rx="1.5" ry="1" fill="#fff" opacity="0.6"/>
+      </g>
+      <g transform="translate(83,33)">
+        <circle cx="0" cy="2" r="3.8" fill="#8a4a24"/>
+        <circle cx="0" cy="-1" r="3.4" fill="#ffd21f"/>
+      </g>
+      <g transform="translate(22,80)">
+        <circle cx="0" cy="2" r="4" fill="#8a4a24"/>
+        <circle cx="0" cy="-1" r="3.6" fill="#ffd21f"/>
+        <ellipse cx="-1.3" cy="-2.2" rx="1.5" ry="1" fill="#fff" opacity="0.6"/>
+      </g>
+      <g transform="translate(52,72)">
+        <circle cx="0" cy="2" r="3.6" fill="#8a4a24"/>
+        <circle cx="0" cy="-1" r="3.2" fill="#ffd21f"/>
+      </g>
+
+      <!-- 花簇 1 -->
+      <g transform="translate(64,41)">
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="5" fill="url(#plumInnerG)"/>
+        <circle cx="0" cy="0" r="2.4" fill="#f39a12"/>
+        <ellipse cx="-2.2" cy="-3.4" rx="2.2" ry="1.4" fill="#fff" opacity="0.5"/>
+      </g>
+      <!-- 花簇 2 -->
+      <g transform="translate(38,50) scale(0.85)">
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="5" fill="url(#plumInnerG)"/>
+        <circle cx="0" cy="0" r="2.4" fill="#f39a12"/>
+        <ellipse cx="-2.2" cy="-3.4" rx="2.2" ry="1.4" fill="#fff" opacity="0.5"/>
+      </g>
+      <!-- 花簇 3 -->
+      <g transform="translate(30,66) scale(0.9)">
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="5" fill="url(#plumInnerG)"/>
+        <circle cx="0" cy="0" r="2.4" fill="#f39a12"/>
+        <ellipse cx="-2.2" cy="-3.4" rx="2.2" ry="1.4" fill="#fff" opacity="0.5"/>
+      </g>
+      <!-- 花簇 4 -->
+      <g transform="translate(56,62) scale(0.75)">
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-8" rx="6.5" ry="8" fill="url(#plumPetalG)" transform="rotate(288)"/>
+        <circle cx="0" cy="0" r="5" fill="url(#plumInnerG)"/>
+        <circle cx="0" cy="0" r="2.4" fill="#f39a12"/>
+        <ellipse cx="-2.2" cy="-3.4" rx="2.2" ry="1.4" fill="#fff" opacity="0.5"/>
+      </g>
+    </symbol>
+
+    <!-- 书本图标 -->
+    <symbol id="icon-book" viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="bookCover" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e85a8a"/>
+          <stop offset="100%" stop-color="#f5c84b"/>
+        </linearGradient>
+      </defs>
+      <rect x="18" y="20" width="64" height="64" rx="4" fill="url(#bookCover)"/>
+      <rect x="22" y="24" width="56" height="56" rx="2" fill="#fff8f0"/>
+      <line x1="50" y1="24" x2="50" y2="80" stroke="#e85a8a" stroke-width="2"/>
+      <line x1="30" y1="36" x2="44" y2="36" stroke="#c8557e" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="30" y1="46" x2="44" y2="46" stroke="#c8557e" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="30" y1="56" x2="40" y2="56" stroke="#c8557e" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="56" y1="36" x2="70" y2="36" stroke="#b8860b" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="56" y1="46" x2="70" y2="46" stroke="#b8860b" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="56" y1="56" x2="66" y2="56" stroke="#b8860b" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- 城市建筑图标 -->
+    <symbol id="icon-city" viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="cityGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#a5d6a7"/>
+          <stop offset="100%" stop-color="#2e7d32"/>
+        </linearGradient>
+      </defs>
+      <rect x="15" y="40" width="22" height="42" rx="2" fill="url(#cityGrad)" stroke="#2e7d32" stroke-width="1.5"/>
+      <rect x="42" y="28" width="20" height="54" rx="2" fill="url(#cityGrad)" stroke="#2e7d32" stroke-width="1.5"/>
+      <rect x="68" y="48" width="18" height="34" rx="2" fill="url(#cityGrad)" stroke="#2e7d32" stroke-width="1.5"/>
+      <rect x="48" y="20" width="8" height="10" fill="url(#cityGrad)" stroke="#2e7d32" stroke-width="1.5"/>
+      <polygon points="52,12 46,22 58,22" fill="url(#cityGrad)" stroke="#2e7d32" stroke-width="1.5"/>
+      <rect x="20" y="48" width="5" height="5" fill="#ffd54f"/>
+      <rect x="28" y="48" width="5" height="5" fill="#ffd54f"/>
+      <rect x="20" y="58" width="5" height="5" fill="#ffd54f"/>
+      <rect x="28" y="58" width="5" height="5" fill="#ffd54f"/>
+      <rect x="46" y="36" width="4" height="4" fill="#ffd54f"/>
+      <rect x="53" y="36" width="4" height="4" fill="#ffd54f"/>
+      <rect x="46" y="46" width="4" height="4" fill="#ffd54f"/>
+      <rect x="53" y="46" width="4" height="4" fill="#ffd54f"/>
+      <rect x="46" y="56" width="4" height="4" fill="#ffd54f"/>
+      <rect x="53" y="56" width="4" height="4" fill="#ffd54f"/>
+      <rect x="72" y="54" width="4" height="4" fill="#ffd54f"/>
+      <rect x="79" y="54" width="4" height="4" fill="#ffd54f"/>
+      <rect x="72" y="64" width="4" height="4" fill="#ffd54f"/>
+      <rect x="79" y="64" width="4" height="4" fill="#ffd54f"/>
+    </symbol>
+
+    <!-- 叶子图标 -->
+    <symbol id="icon-leaf" viewBox="0 0 100 100">
+      <path d="M50 15 C30 25, 18 50, 25 78 C35 68, 45 60, 50 55 C55 60, 65 68, 75 78 C82 50, 70 25, 50 15 Z" fill="#66bb6a"/>
+      <path d="M50 20 L50 80" stroke="#43a047" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M50 35 Q40 38 32 45" stroke="#43a047" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M50 35 Q60 38 68 45" stroke="#43a047" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M50 50 Q40 53 34 60" stroke="#43a047" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M50 50 Q60 53 66 60" stroke="#43a047" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- 太阳图标 -->
+    <symbol id="icon-sun" viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff59d"/>
+          <stop offset="60%" stop-color="#ffd54f"/>
+          <stop offset="100%" stop-color="#f9a825"/>
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="20" fill="url(#sunGrad)"/>
+      <g stroke="#f9a825" stroke-width="4" stroke-linecap="round">
+        <line x1="50" y1="14" x2="50" y2="24"/>
+        <line x1="50" y1="76" x2="50" y2="86"/>
+        <line x1="14" y1="50" x2="24" y2="50"/>
+        <line x1="76" y1="50" x2="86" y2="50"/>
+        <line x1="24" y1="24" x2="31" y2="31"/>
+        <line x1="69" y1="69" x2="76" y2="76"/>
+        <line x1="76" y1="24" x2="69" y2="31"/>
+        <line x1="31" y1="69" x2="24" y2="76"/>
+      </g>
+    </symbol>
+
+    <!-- 地球图标 -->
+    <symbol id="icon-earth" viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="earthGrad" cx="35%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#4fc3f7"/>
+          <stop offset="100%" stop-color="#1565c0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="32" fill="url(#earthGrad)"/>
+      <path d="M30 40 Q38 35 45 42 Q52 38 58 44 Q64 40 70 46" stroke="#66bb6a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M35 55 Q42 50 50 56 Q58 52 65 58" stroke="#66bb6a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M30 65 Q40 60 48 66" stroke="#66bb6a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="50" cy="50" rx="32" ry="12" fill="none" stroke="#1565c0" stroke-width="1.5" opacity="0.5"/>
+      <ellipse cx="50" cy="50" rx="12" ry="32" fill="none" stroke="#1565c0" stroke-width="1.5" opacity="0.5"/>
+    </symbol>
+
+    <!-- 钻石图标 -->
+    <symbol id="icon-diamond" viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="diaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#b2ebf2"/>
+          <stop offset="50%" stop-color="#4dd0e1"/>
+          <stop offset="100%" stop-color="#0097a7"/>
+        </linearGradient>
+      </defs>
+      <polygon points="50,18 78,40 65,82 35,82 22,40" fill="url(#diaGrad)" stroke="#00838f" stroke-width="1.5"/>
+      <polygon points="22,40 50,40 35,82" fill="#80deea" opacity="0.7"/>
+      <polygon points="50,40 78,40 65,82" fill="#26c6da" opacity="0.7"/>
+      <line x1="50" y1="18" x2="50" y2="40" stroke="#00838f" stroke-width="1.5"/>
+      <line x1="35" y1="40" x2="35" y2="82" stroke="#00838f" stroke-width="1.2" opacity="0.6"/>
+      <line x1="65" y1="40" x2="65" y2="82" stroke="#00838f" stroke-width="1.2" opacity="0.6"/>
+    </symbol>
+
+    <!-- 雪花图标 -->
+    <symbol id="icon-snow" viewBox="0 0 100 100">
+      <g stroke="#4fc3f7" stroke-width="3.5" stroke-linecap="round" fill="none">
+        <line x1="50" y1="16" x2="50" y2="84"/>
+        <line x1="20" y1="33" x2="80" y2="67"/>
+        <line x1="20" y1="67" x2="80" y2="33"/>
+      </g>
+      <g stroke="#4fc3f7" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <line x1="50" y1="16" x2="43" y2="24"/>
+        <line x1="50" y1="16" x2="57" y2="24"/>
+        <line x1="50" y1="84" x2="43" y2="76"/>
+        <line x1="50" y1="84" x2="57" y2="76"/>
+        <line x1="20" y1="33" x2="28" y2="28"/>
+        <line x1="20" y1="33" x2="24" y2="41"/>
+        <line x1="80" y1="67" x2="72" y2="72"/>
+        <line x1="80" y1="67" x2="76" y2="59"/>
+        <line x1="20" y1="67" x2="28" y2="72"/>
+        <line x1="20" y1="67" x2="24" y2="59"/>
+        <line x1="80" y1="33" x2="72" y2="28"/>
+        <line x1="80" y1="33" x2="76" y2="41"/>
+      </g>
+      <circle cx="50" cy="50" r="4" fill="#4fc3f7"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 导航栏 -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">荷风梅韵</div>
+  <ul class="nav-tabs">
+    <li><a href="#hero" class="active">首页</a></li>
+    <li><a href="#history">市花历史</a></li>
+    <li><a href="#introduce">走进市花</a></li>
+    <li><a href="#culture">神话传说</a></li>
+    <li><a href="#spirit">市花气节</a></li>
+    <li><a href="#jingzhou">荆州花语</a></li>
+  </ul>
+</nav>
+
+<!-- Hero 标题区 -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-2"></div>
+  <div class="hero-content">
+    <div class="hero-subtitle">荆 州 市 花</div>
+    <h1 class="hero-title">荷风梅韵</h1>
+    <p class="hero-desc">
+      一城荷香，半城梅影。<br>
+      荷花出淤泥而不染，蜡梅凌寒雪而独开。<br>
+      一夏一冬，一清一傲，共铸荆州千年风骨。
+    </p>
+  </div>
+  <div class="hero-scroll">向下滚动 ↓</div>
+</section>
+
+<!-- 市花历史 -->
+<section id="history">
+  <div class="section-inner">
+    <span class="section-tag">HISTORY</span>
+    <h2 class="section-title history-title">市花历史</h2>
+    <p class="section-lead">
+      一座城市的市花，从来不是一次简单的评比。它是气候与水土的选择，是文脉与记忆的选择，
+      更是万千市民一票一票投出来的共同心愿。2015 年至 2016 年，荆州用一场持续数月的全民评选，
+      最终让荷花与蜡梅同时登上这座古城的"花之榜首"。
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2015年10月 · 评选启动</div>
+        <div class="timeline-text">
+          随着城市绿化与生态建设不断推进，荆州需要一个能被市民共同认可的花木符号。
+          市绿化部门面向全市公开征集市树、市花候选品种，通过报纸选票、网络专题、社区问卷、
+          校园活动等多种渠道动员参与，不限年龄、不限职业。短短数月，共回收有效选票 197,239 张，
+          市民参与热情远超预期。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2015年秋冬 · 专家评审</div>
+        <div class="timeline-text">
+          由园林、植物、文史等领域专家组成评审组，围绕五个维度逐项评议：
+          地域代表性——是否真正属于荆州的水土；栽培适应性——能否在全市广泛种植；
+          文化内涵——是否承载荆楚记忆；群众基础——票选是否集中；景观效果——是否具备四季观赏价值。
+          荷花凭高票与鲜明的水乡标识率先入选；蜡梅则因填补冬季花事空白、香气清远而获专家一致推荐。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2015年末 · 政府推荐</div>
+        <div class="timeline-text">
+          市政府综合民意与专家意见，确定推荐市树为银杏、紫荆，市花为荷花、蜡梅，并按程序提请市人大常委会审议。
+          推荐理由中写道：荷花"花大叶丽、清香远溢"，蜡梅"凌寒独开、暗香浮动"，
+          一夏一冬，正可代言荆州的城市气质。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2016年1月12日 · 法定确立</div>
+        <div class="timeline-text">
+          荆州市第四届人民代表大会常务委员会第 37 次会议审议通过，正式决定：
+          荆州市市树为银杏、紫荆，市花为荷花、蜡梅。自此，这两朵花不再只是民间的偏爱，
+          而成为具有法定意义的城市符号，写入荆州的城市记忆。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">至今 · 花满荆城</div>
+        <div class="timeline-text">
+          明月公园、西湖公园、江津湖等水域连片栽植荷花，夏日"接天莲叶无穷碧"；
+          街头绿地、公园、机关庭院与学校广植蜡梅，寒冬暗香浮动。
+          市花从一纸决议，长成了市民日常生活里的四季风景。
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">为何是"双市花"</h3>
+    <p class="sub-lead">
+      双市花在国内并不罕见——北京于 1987 年确定月季与菊花为市花。
+      荆州同时选择荷花与蜡梅，并非求全，而是因为二者在季相、气质与空间上恰好互补，
+      能更完整地表达这座城市的性格。
+    </p>
+    <div class="dual-grid">
+      <div class="dual-point">
+        <h4>季相互补：一夏一冬，全年有花</h4>
+        <p>
+          荷花花期 5—10 月，盛于盛夏；蜡梅花期 12 月至次年 3 月，开于隆冬。
+          一夏一冬，首尾相接，让城市在一年四季里都有值得期待的花事。
+        </p>
+      </div>
+      <div class="dual-point">
+        <h4>气质互补：一柔一刚，刚柔并济</h4>
+        <p>
+          荷花出淤泥而不染，是水的柔与清；蜡梅凌寒独自开，是陆的刚与傲。
+          一柔一刚，恰如荆州——既有水乡的温婉灵动，也有楚人的刚毅豪迈。
+        </p>
+      </div>
+      <div class="dual-point">
+        <h4>空间互补：一水一陆，处处有景</h4>
+        <p>
+          荷花是水体景观的主角，装点湖泊塘堰与城市水系；蜡梅是陆生绿地的常客，
+          适宜街头、庭院与公园。水陆并举，城市的每个角落都能遇见市花。
+        </p>
+      </div>
+    </div>
+
+    <div class="history-quote">
+      一城双花，一夏一冬；清者自清，傲者自傲。
+    </div>
+
+    <div class="history-gallery">
+      <img src="Figures/莲花/2.jpg" alt="荷花">
+      <img src="Figures/蜡梅/2.jpg" alt="蜡梅">
+      <img src="Figures/莲花/3.jpg" alt="荷塘">
+    </div>
+  </div>
+</section>
+
+<!-- 走进市花 -->
+<section id="introduce">
+  <div class="section-inner">
+    <span class="section-tag">INTRODUCE</span>
+    <h2 class="section-title introduce-title">走进市花</h2>
+    <p class="section-lead">
+      一花一世界，一叶一菩提。让我们走近这两朵市花，领略它们的形态之美、习性之奇、分布之广与价值之丰。
+    </p>
+
+    <!-- 荷花 -->
+    <div class="flower-block" id="lotus-block">
+      <div class="flower-header">
+        <div class="flower-icon icon-lotus"><svg><use href="#icon-lotus"/></svg></div>
+        <div>
+          <div class="flower-name lotus">荷 花</div>
+          <div class="flower-en">NELUMBO NUCIFERA · 莲</div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h4><svg><use href="#icon-leaf"/></svg>形态特征</h4>
+          <p>多年生水生草本。根茎（藕）肥厚多节，横生底泥。叶盾状圆形，直径可达90厘米。花单生顶端，花瓣红、粉或白色，坚果椭圆形。</p>
+        </div>
+        <div class="info-card">
+          <h4><svg><use href="#icon-sun"/></svg>生长习性</h4>
+          <p>强阳性植物，每日需6-8小时直射光。25-35℃为最佳生长温度，低于15℃休眠。喜保水保肥的黏质塘泥，花期5-10月。</p>
+        </div>
+        <div class="info-card">
+          <h4><svg><use href="#icon-earth"/></svg>地理分布</h4>
+          <p>原产亚洲热带与温带，我国周朝已有栽培记载。广布于南北各省湖泊、水塘，荆州明月公园、西湖公园、江津湖均有栽植。</p>
+        </div>
+        <div class="info-card">
+          <h4><svg><use href="#icon-diamond"/></svg>主要价值</h4>
+          <p>全身是宝——藕可食用，莲子入药，莲叶清热，莲花观赏。花型分单瓣、重瓣、千瓣等，花色丰富，是中国传统十大名花之一。</p>
+        </div>
+      </div>
+
+      <!-- 荷花轮播 -->
+      <div class="gallery" data-gallery="lotus">
+        <div class="gallery-track" id="lotus-track">
+          <!-- slides inserted by JS -->
+        </div>
+        <button class="gallery-btn prev" onclick="changeSlide('lotus', -1)">‹</button>
+        <button class="gallery-btn next" onclick="changeSlide('lotus', 1)">›</button>
+        <div class="gallery-dots" id="lotus-dots"></div>
+      </div>
+    </div>
+
+    <!-- 蜡梅 -->
+    <div class="flower-block" id="plum-block">
+      <div class="flower-header">
+        <div class="flower-icon icon-plum"><svg><use href="#icon-plum"/></svg></div>
+        <div>
+          <div class="flower-name plum">蜡 梅</div>
+          <div class="flower-en">CHIMONANTHUS PRAECOX · 腊梅</div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h4><svg><use href="#icon-leaf"/></svg>形态特征</h4>
+          <p>落叶灌木，高达4米。幼枝四方形，老枝近圆柱形。叶对生，表面粗糙。花单生，蜡黄色，内轮花瓣基部有褐紫斑纹，先花后叶，浓香馥郁。</p>
+        </div>
+        <div class="info-card">
+          <h4><svg><use href="#icon-snow"/></svg>生长习性</h4>
+          <p>耐寒耐旱，喜阳光亦耐半阴。花期12月至次年3月，于隆冬时节绽放。花被片如蜡质，色泽金黄，故得名"蜡梅"，又称腊梅、黄梅花。</p>
+        </div>
+        <div class="info-card">
+          <h4><svg><use href="#icon-earth"/></svg>地理分布</h4>
+          <p>原产中国中部，山东、云南、广东等地均有栽培。湖北、四川、江苏等省将其选为市花，象征不畏艰难、自强不息的城市精神。</p>
+        </div>
+        <div class="info-card">
+          <h4><svg><use href="#icon-diamond"/></svg>主要价值</h4>
+          <p>花可提取芳香油，入药可解暑生津、顺气止咳。木材坚硬可制工艺品。其不畏严寒的品格，历来为文人墨客所咏叹。</p>
+        </div>
+      </div>
+
+      <!-- 蜡梅轮播 -->
+      <div class="gallery" data-gallery="plum">
+        <div class="gallery-track" id="plum-track"></div>
+        <button class="gallery-btn prev" onclick="changeSlide('plum', -1)">‹</button>
+        <button class="gallery-btn next" onclick="changeSlide('plum', 1)">›</button>
+        <div class="gallery-dots" id="plum-dots"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 神话传说与市花文化 -->
+<section id="culture">
+  <div class="section-inner">
+    <span class="section-tag">CULTURE</span>
+    <h2 class="section-title culture-title">神话传说与市花文化</h2>
+    <p class="section-lead">
+      千百年来，荷花与蜡梅承载着华夏民族的精神图腾。从佛教的莲花宝座到文人的咏梅诗篇，
+      一花一叶间，流淌着中国人对高洁品格的永恒追求。
+    </p>
+
+    <div class="culture-grid">
+      <!-- 荷花文化 -->
+      <div class="culture-card fade-in">
+        <h3><svg><use href="#icon-lotus"/></svg>荷之文化</h3>
+        <p>荷花在中华文化中地位崇高，被儒、释、道三教共同推崇。佛教以莲为清净无染的象征，
+          佛陀坐于"莲花座"上，极乐世界被称为"莲花世界"。道教奉莲若珍宝，
+          江淹《莲花赋》赞其"蕊金光而绝色，藕冰拆而玉清"。</p>
+        <div class="poem-box lotus">
+          <svg class="ink-splash tl" viewBox="0 0 84 84" aria-hidden="true">
+            <path fill-opacity="0.18" d="M40 10 C54 8 66 18 64 32 C63 42 54 46 50 54 C46 62 38 68 30 64 C22 60 24 50 28 44 C20 38 18 28 24 18 C28 12 34 10 40 10 Z"/>
+            <circle cx="70" cy="18" r="2.6" fill-opacity="0.22"/>
+            <circle cx="74" cy="28" r="1.5" fill-opacity="0.18"/>
+            <circle cx="58" cy="68" r="2" fill-opacity="0.16"/>
+            <circle cx="24" cy="72" r="1.2" fill-opacity="0.14"/>
+          </svg>
+          <svg class="ink-splash br" viewBox="0 0 84 84" aria-hidden="true">
+            <path fill-opacity="0.16" d="M40 10 C54 8 66 18 64 32 C63 42 54 46 50 54 C46 62 38 68 30 64 C22 60 24 50 28 44 C20 38 18 28 24 18 C28 12 34 10 40 10 Z"/>
+            <circle cx="70" cy="18" r="2.2" fill-opacity="0.2"/>
+            <circle cx="32" cy="74" r="1.6" fill-opacity="0.16"/>
+          </svg>
+          <p>水陆草木之花，可爱者甚蕃。<br>予独爱莲之出淤泥而不染，<br>濯清涟而不妖，中通外直，<br>不蔓不枝，香远益清，亭亭净植。</p>
+          <div class="poem-author">—— 北宋 · 周敦颐《爱莲说》</div>
+        </div>
+        <p>宋代理学家周敦颐一篇《爱莲说》，将荷花的世俗之美提升至精神境界，
+          定格了莲花"花之君子"的身份。"出淤泥而不染"成为千古流传的高洁箴言。</p>
+        <div class="culture-images">
+          <img src="Figures/莲花/5.jpg" alt="荷花">
+          <img src="Figures/莲花/6.jpg" alt="荷塘">
+        </div>
+      </div>
+
+      <!-- 蜡梅文化 -->
+      <div class="culture-card fade-in">
+        <h3><svg><use href="#icon-plum"/></svg>梅之文化</h3>
+        <p>蜡梅之名起于北宋元祐年间，由苏东坡、黄庭坚正式定名。
+          腊月时节，人们常剪几枝蜡梅插瓶，清香袅袅，为寒冬带来温暖与喜悦。
+          蜡梅被多个城市选为市花，象征不畏艰难、自强不息的精神。</p>
+        <div class="poem-box plum">
+          <svg class="ink-splash tl" viewBox="0 0 84 84" aria-hidden="true">
+            <path fill-opacity="0.16" d="M42 8 C56 10 68 20 64 34 C61 44 52 48 48 56 C44 64 36 70 28 65 C21 60 24 50 28 44 C20 38 17 28 23 18 C27 11 34 8 42 8 Z"/>
+            <circle cx="71" cy="20" r="2.4" fill-opacity="0.2"/>
+            <circle cx="66" cy="30" r="1.4" fill-opacity="0.16"/>
+            <circle cx="30" cy="72" r="1.8" fill-opacity="0.15"/>
+          </svg>
+          <svg class="ink-splash br" viewBox="0 0 84 84" aria-hidden="true">
+            <path fill-opacity="0.15" d="M42 8 C56 10 68 20 64 34 C61 44 52 48 48 56 C44 64 36 70 28 65 C21 60 24 50 28 44 C20 38 17 28 23 18 C27 11 34 8 42 8 Z"/>
+            <circle cx="72" cy="22" r="2" fill-opacity="0.18"/>
+            <circle cx="26" cy="70" r="1.4" fill-opacity="0.14"/>
+          </svg>
+          <p>墙角数枝梅，凌寒独自开。<br>遥知不是雪，为有暗香来。</p>
+          <div class="poem-author">—— 北宋 · 王安石《梅花》</div>
+        </div>
+        <p>王安石借梅言志，写出蜡梅凌寒独开的孤勇。在古代，蜡梅是冬季文人雅士案头清供，
+          伴着腊八粥与腊肉，构成一幅温暖的岁朝图景。其花语为"高风亮节、澄澈的心"。</p>
+        <div class="culture-images">
+          <img src="Figures/蜡梅/5.jpg" alt="蜡梅">
+          <img src="Figures/蜡梅/6.jpg" alt="蜡梅枝">
+        </div>
+      </div>
+    </div>
+
+    <!-- 神话传说 -->
+    <div class="culture-card myth-card fade-in" style="margin-top:40px;">
+      <svg class="totem-band totem-top" height="18" aria-hidden="true">
+        <defs>
+          <pattern id="huiTop" width="22" height="18" patternUnits="userSpaceOnUse">
+            <path d="M3 15 H19 V3 H7 V11 H15" fill="none" stroke="#b08542" stroke-width="1.6"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="18" fill="url(#huiTop)"/>
+      </svg>
+      <svg class="totem-band totem-bottom" height="18" aria-hidden="true">
+        <defs>
+          <pattern id="huiBottom" width="22" height="18" patternUnits="userSpaceOnUse">
+            <path d="M3 15 H19 V3 H7 V11 H15" fill="none" stroke="#b08542" stroke-width="1.6"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="18" fill="url(#huiBottom)"/>
+      </svg>
+      <svg class="totem-corner tl" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M44 8 C25 8 8 25 8 44"/>
+        <path d="M44 15 C29 15 15 29 15 44"/>
+        <circle cx="27" cy="27" r="3"/>
+      </svg>
+      <svg class="totem-corner tr" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M44 8 C25 8 8 25 8 44"/>
+        <path d="M44 15 C29 15 15 29 15 44"/>
+        <circle cx="27" cy="27" r="3"/>
+      </svg>
+      <svg class="totem-corner bl" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M44 8 C25 8 8 25 8 44"/>
+        <path d="M44 15 C29 15 15 29 15 44"/>
+        <circle cx="27" cy="27" r="3"/>
+      </svg>
+      <svg class="totem-corner br" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M44 8 C25 8 8 25 8 44"/>
+        <path d="M44 15 C29 15 15 29 15 44"/>
+        <circle cx="27" cy="27" r="3"/>
+      </svg>
+      <svg class="totem-taotie" viewBox="0 0 140 100" aria-hidden="true">
+        <path d="M70 10 C60 10 54 18 50 26"/>
+        <path d="M70 10 C80 10 86 18 90 26"/>
+        <path d="M34 48 C34 38 42 32 52 32 C60 32 64 38 62 44 C60 50 52 52 48 48 C44 44 46 38 52 38"/>
+        <path d="M106 48 C106 38 98 32 88 32 C80 32 76 38 78 44 C80 50 88 52 92 48 C96 44 94 38 88 38"/>
+        <path d="M70 40 L70 60"/>
+        <path d="M70 60 C62 60 56 64 50 70"/>
+        <path d="M70 60 C78 60 84 64 90 70"/>
+        <path d="M46 76 C56 82 84 82 94 76"/>
+      </svg>
+      <h3><svg><use href="#icon-book"/></svg>神话传说</h3>
+      <div class="myth-grid">
+        <div class="myth-col">
+          <h4 class="myth-h4 lotus">荷花的传说</h4>
+          <p>
+            相传王母娘娘身边的玉姬仙女，见人间男耕女织、成双成对，心生向往。
+            她偷偷下凡来到杭州西子湖畔，忘情嬉戏至天明。王母娘娘得知后大怒，
+            将玉姬打入湖中淤泥，罚她"永世不得再登南天"。
+            从此，天宫少了一位仙女，人间多了一种冰清玉洁的鲜花——荷花。
+          </p>
+        </div>
+        <div class="myth-col">
+          <h4 class="myth-h4 plum">蜡梅的传说</h4>
+          <p>
+            相传古时有位叫腊梅的姑娘，其父身患重病，需梅花入药。
+            时值隆冬，百花凋零，姑娘四处寻梅不得，哭倒于雪地。
+            她的孝心感动了花神，枝头忽然绽放出朵朵金黄小花，
+            香气沁人心脾。姑娘采花煎药，父亲果然痊愈。
+            后人便将此花以姑娘之名命名，称为"蜡梅"。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 市花气节 -->
+<section id="spirit">
+  <div class="section-inner">
+    <span class="section-tag">SPIRIT</span>
+    <h2 class="section-title spirit-title">市花气节</h2>
+    <p class="section-lead">
+      花亦有德，花亦有魂。荷花之清、蜡梅之傲，不仅是自然的馈赠，
+      更是中华民族精神品格的诗意写照。
+    </p>
+
+    <div class="spirit-cards">
+      <div class="spirit-card fade-in">
+        <div class="spirit-emoji"><svg><use href="#icon-lotus"/></svg></div>
+        <h3>出淤泥而不染</h3>
+        <p>荷花生于淤泥，却开得洁净无瑕。这是一种身处浊世而坚守本心的高洁，
+          一种"举世皆浊我独清"的从容。做人当如莲，扎根现实而心向光明。</p>
+      </div>
+      <div class="spirit-card fade-in">
+        <div class="spirit-emoji"><svg><use href="#icon-plum"/></svg></div>
+        <h3>凌寒独自开</h3>
+        <p>蜡梅于百花凋零的隆冬绽放，不与群芳争艳，却以一缕暗香报春。
+          这是一种不畏艰难、自强不息的坚韧，一种"零落成泥碾作尘，只有香如故"的孤勇。</p>
+      </div>
+      <div class="spirit-card fade-in">
+        <div class="spirit-emoji"><svg><use href="#icon-city"/></svg></div>
+        <h3>一城双花，刚柔并济</h3>
+        <p>荆州以荷花与蜡梅并为市花，夏荷之柔美与冬梅之刚健交相辉映。
+          正如这座古城的品格——既有水乡的温婉灵动，又有楚人的刚毅豪迈，
+          刚柔并济，生生不息。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 荆州花语 -->
+<section id="jingzhou">
+  <div class="section-inner">
+    <span class="section-tag">JINGZHOU</span>
+    <h2 class="section-title jingzhou-title">荆州花语</h2>
+    <p class="section-lead">
+      荆州，古称江陵，楚文化的发祥地。荷花映日，蜡梅傲雪，
+      这两朵市花，是这座千年古城最温柔也最坚毅的注脚。
+    </p>
+
+    <div class="jingzhou-banner">
+      <div class="jingzhou-text fade-in">
+        <p>
+          荆州地处江汉平原腹地，河湖密布，自古便是荷花的故乡。
+          每到盛夏，明月公园、江津湖碧波荡漾，接天莲叶无穷碧，
+          映日荷花别样红，满城荷香沁人心脾。
+        </p>
+        <p>
+          而当寒冬降临，蜡梅便在枝头悄然绽放。那一抹金黄，
+          那一缕幽香，为萧瑟的古城带来盎然生机。
+          楚人的浪漫与坚韧，正藏在这一夏一冬的花事之中。
+        </p>
+        <div class="jingzhou-quote">
+          "接天莲叶无穷碧，映日荷花别样红。"<br>
+          "疏影横斜水清浅，暗香浮动月黄昏。"
+        </div>
+        <p>
+          荷花是荆州的夏之魂，蜡梅是荆州的冬之骨。
+          一花一水，一寒一暑，共同编织着这座城市最动人的四季诗行。
+        </p>
+      </div>
+      <div class="jingzhou-images fade-in">
+        <img src="Figures/莲花/10.jpg" alt="荷花">
+        <img src="Figures/蜡梅/10.jpg" alt="蜡梅">
+        <img src="Figures/蜡梅/11.jpg" alt="蜡梅">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+  <p class="footer-title">荷 风 梅 韵</p>
+  <p class="footer-sub">荆州市市花 · 荷花 & 蜡梅</p>
+  <p style="margin-top:20px; font-size:12px; opacity:0.5;">出淤泥而不染 · 凌寒雪而独开</p>
+</footer>
+
+<script>
+  // ============ Hero 背景交替：荷花与蜡梅淡入淡出 ============
+  const lotusBgList = ['Figures/莲花/1.jpg','Figures/莲花/4.jpg','Figures/莲花/7.jpg','Figures/莲花/8.jpg'];
+  const plumBgList = ['Figures/蜡梅/1.jpg','Figures/蜡梅/4.jpg','Figures/蜡梅/7.jpg','Figures/蜡梅/8.jpg'];
+  const bgA = document.querySelector('.hero-bg');
+  const bgB = document.querySelector('.hero-bg-2');
+  let bgIndex = 0;       // 当前显示哪一组：0=荷花, 1=蜡梅
+  let lotusIdx = 0;
+  let plumIdx = 0;
+  setInterval(() => {
+    if (bgIndex === 0) {
+      // 当前显示荷花(A)，淡入蜡梅(B)
+      bgB.style.backgroundImage = `url('${plumBgList[plumIdx]}')`;
+      bgB.style.opacity = '0.3';
+      bgA.style.opacity = '0';
+      plumIdx = (plumIdx + 1) % plumBgList.length;
+      bgIndex = 1;
+    } else {
+      // 当前显示蜡梅(B)，淡入荷花(A)
+      bgA.style.backgroundImage = `url('${lotusBgList[lotusIdx]}')`;
+      bgA.style.opacity = '0.3';
+      bgB.style.opacity = '0';
+      lotusIdx = (lotusIdx + 1) % lotusBgList.length;
+      bgIndex = 0;
+    }
+  }, 4000);
+
+  // ============ 导航栏滚动效果 ============
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // ============ 导航页签高亮 ============
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-tabs a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 120;
+      if (window.scrollY >= top) current = sec.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+
+  // ============ 滚动渐入动画 ============
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.timeline-item, .flower-block, .fade-in').forEach(el => observer.observe(el));
+
+  // ============ 照片轮播 ============
+  const lotusImages = Array.from({length: 24}, (_, i) => `Figures/莲花/${i+1}.jpg`);
+  const plumImages = Array.from({length: 24}, (_, i) => `Figures/蜡梅/${i+1}.jpg`);
+
+  const lotusCaptions = [
+    '亭亭玉立，出淤泥而不染', '清水出芙蓉，天然去雕饰', '接天莲叶无穷碧',
+    '映日荷花别样红', '荷叶罗裙一色裁', '芙蓉向脸两边开',
+    '灼灼荷花瑞，亭亭出水中', '荷花宫样美人妆', '荷风送香气',
+    '竹露滴清响', '采莲南塘秋', '莲花过人头',
+    '低头弄莲子', '莲子清如水', '藕花深处',
+    '争渡，争渡', '惊起一滩鸥鹭', '唯有绿荷红菡萏',
+    '卷舒开合任天真', '此花此叶常相映', '翠减红衰愁杀人',
+    '江南可采莲', '莲叶何田田', '鱼戏莲叶间'
+  ];
+  const plumCaptions = [
+    '墙角数枝梅，凌寒独自开', '遥知不是雪，为有暗香来', '疏影横斜水清浅',
+    '暗香浮动月黄昏', '零落成泥碾作尘', '只有香如故',
+    '俏也不争春', '只把春来报', '待到山花烂漫时',
+    '她在丛中笑', '宝剑锋从磨砺出', '梅花香自苦寒来',
+    '梅须逊雪三分白', '雪却输梅一段香', '忽然一夜清香发',
+    '散作乾坤万里春', '不要人夸好颜色', '只留清气满乾坤',
+    '疏影横斜', '暗香浮动', '凌寒独自开',
+    '为有暗香来', '梅花开尽百花开', '过尽行人君不来'
+  ];
+
+  function initGallery(galleryName, images, captions) {
+    const track = document.getElementById(`${galleryName}-track`);
+    const dotsBox = document.getElementById(`${galleryName}-dots`);
+    images.forEach((src, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'gallery-slide';
+      slide.innerHTML = `<img src="${src}" alt="${galleryName} ${i+1}" loading="lazy"><div class="gallery-caption">${captions[i] || ''}</div>`;
+      track.appendChild(slide);
+      const dot = document.createElement('div');
+      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(galleryName, i);
+      dotsBox.appendChild(dot);
+    });
+  }
+
+  initGallery('lotus', lotusImages, lotusCaptions);
+  initGallery('plum', plumImages, plumCaptions);
+
+  const galleryState = { lotus: 0, plum: 0 };
+  const galleryTimer = { lotus: null, plum: null };
+
+  function updateGallery(galleryName) {
+    const track = document.getElementById(`${galleryName}-track`);
+    const dots = document.getElementById(`${galleryName}-dots`).children;
+    const idx = galleryState[galleryName];
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    Array.from(dots).forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  function changeSlide(galleryName, dir) {
+    const total = galleryName === 'lotus' ? lotusImages.length : plumImages.length;
+    galleryState[galleryName] = (galleryState[galleryName] + dir + total) % total;
+    updateGallery(galleryName);
+    resetAuto(galleryName);
+  }
+
+  function goToSlide(galleryName, i) {
+    galleryState[galleryName] = i;
+    updateGallery(galleryName);
+    resetAuto(galleryName);
+  }
+
+  function startAuto(galleryName) {
+    galleryTimer[galleryName] = setInterval(() => changeSlide(galleryName, 1), 3000);
+  }
+  function resetAuto(galleryName) {
+    clearInterval(galleryTimer[galleryName]);
+    startAuto(galleryName);
+  }
+
+  startAuto('lotus');
+  startAuto('plum');
+
+  // 鼠标悬停时暂停自动播放
+  document.querySelectorAll('.gallery').forEach(g => {
+    const name = g.dataset.gallery;
+    g.addEventListener('mouseenter', () => clearInterval(galleryTimer[name]));
+    g.addEventListener('mouseleave', () => startAuto(name));
+  });
+</script>
+
+</body>
+</html>
